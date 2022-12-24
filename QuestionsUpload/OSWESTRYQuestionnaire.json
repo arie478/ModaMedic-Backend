@@ -1,0 +1,329 @@
+[
+  {
+    "QuestionnaireID" : 4,
+    "QuestionnaireText" : "Oswestry low back pain",
+    "Questions" :
+      [
+          {
+            "QuestionID" : 0,
+            "QuestionText":"עוצמת כאב כרגע",
+            "Type":"Single",
+            "Answers":
+              [
+                {
+                  "answerID": 0,
+                  "answerText": "אין לי כאב"
+                },
+                {
+                  "answerID": 1,
+                  "answerText": "הכאב הוא מינימלי"
+                },
+                {
+                  "answerID": 2,
+                  "answerText": "הכאב בינוני"
+                },
+                {
+                  "answerID": 3,
+                  "answerText": "הכאב חזק"
+                },
+                {
+                  "answerID": 4,
+                  "answerText": "הכאב עז"
+                },
+                {
+                  "answerID": 5,
+                  "answerText": "הכאב הוא הנורא ביותר הקיים"
+                }
+              ]
+          },
+			{
+            "QuestionID" : 1,
+            "QuestionText":"תפקוד יומיומי (רחצה, לבוש וכו')",
+            "Type":"Single",
+            "Answers":
+              [
+                {
+                  "answerID": 0,
+                  "answerText": "אני מסוגל/ת לדאוג לעצמי ללא תוספת כאב"
+                },
+                {
+                  "answerID": 1,
+                  "answerText": "אני מסוגל/ת לדאוג לעצמי אך עם כאב"
+                },
+                {
+                  "answerID": 2,
+                  "answerText": "הדאגה לעצמי מכאיבה, ואני איטי/ת וזהיר/ה"
+                },
+                {
+                  "answerID": 3,
+                  "answerText": "אני זקוק/ה לעזרה אך מתפקד/ת במרבית פעולות הטיפול העצמי"
+                },
+                {
+                  "answerID": 4,
+                  "answerText": "אני זקוק/ה לעזרה יום יומית ברוב הפונקציות התפקודיות"
+                },
+                {
+                  "answerID": 5,
+                  "answerText": "אני לא מתלבש/ת, אני מתרחץ/ת עם קושי ואני נשאר/ת במיטה"
+                }
+              ]
+          },
+		  {
+            "QuestionID" : 2,
+            "QuestionText":"הרמת משאות",
+            "Type":"Single",
+            "Answers":
+              [
+                {
+                  "answerID": 0,
+                  "answerText": "אני מסוגל/ת להרים משאות כבדים ללא כאב"
+                },
+                {
+                  "answerID": 1,
+                  "answerText": "אני מסוגל/ת להרים משאות כבדים אך חש/ה כאב"
+                },
+                {
+                  "answerID": 2,
+                  "answerText": "הכאב מונע ממני הרמת משאות כבדים מהרצפה אך אני יכול/ה להסתדר אם המשא מוצב בצורה נוחה (על שולחן וכד')"
+                },
+                {
+                  "answerID": 3,
+                  "answerText": "הכאב מונע ממני הרמת משאות כבדים אך אני יכול/ה להסתדר עם משאות קלים ובינוניים אם הם מוצבים בצורה נוחה"
+                },
+                {
+                  "answerID": 4,
+                  "answerText": "אני מסוגל/ת להרים רק משאות קלים מאוד"
+                },
+                {
+                  "answerID": 5,
+                  "answerText": "אני לא מסוגל/ת להרים או לשאת משאות כלל"
+                }
+              ]
+          },
+		  		  {
+            "QuestionID" : 3,
+            "QuestionText":"הליכה",
+            "Type":"Single",
+            "Answers":
+              [
+                {
+                  "answerID": 0,
+                  "answerText": "הכאב אינו מונע ממני ללכת כל מרחק שהוא"
+                },
+                {
+                  "answerID": 1,
+                  "answerText": "הכאב מונע ממני ללכת יותר מ-1.6 קילומטרים"
+                },
+                {
+                  "answerID": 2,
+                  "answerText": "הכאב מונע ממני ללכת יותר מ-400 מטר"
+                },
+                {
+                  "answerID": 3,
+                  "answerText": "הכאב מונע ממני ללכת יותר מ-100 מטר"
+                },
+                {
+                  "answerID": 4,
+                  "answerText": "אני מסוגל/ת ללכת רק בעזרת מקל"
+                },
+                {
+                  "answerID": 5,
+                  "answerText": "אני במיטה רוב הזמן ונאלץ/ת לזחול לשירותים"
+                }
+              ]
+          },
+		  		  		  {
+            "QuestionID" : 4,
+            "QuestionText":"ישיבה",
+            "Type":"Single",
+            "Answers":
+              [
+                {
+                  "answerID": 0,
+                  "answerText": "אני יכול/ה לשבת בכל כסא ככל שארצה"
+                },
+                {
+                  "answerID": 1,
+                  "answerText": "אני יכול/ה לשבת רק על הכסא המועדף עלי ככל שארצה"
+                },
+                {
+                  "answerID": 2,
+                  "answerText": "הכאב מונע ממני לשבת יותר משעה אחת"
+                },
+                {
+                  "answerID": 3,
+                  "answerText": "הכאב מונע ממני לשבת יותר מחצי שעה"
+                },
+                {
+                  "answerID": 4,
+                  "answerText": "הכאב מונע ממני לשבת יותר מ-10 דקות"
+                },
+                {
+                  "answerID": 5,
+                  "answerText": "הכאב מונע ממני לשבת כלל"
+                }
+              ]
+          },
+			{
+            "QuestionID" : 5,
+            "QuestionText":"עמידה",
+            "Type":"Single",
+            "Answers":
+              [
+                {
+                  "answerID": 0,
+                  "answerText": "אני מסוגל/ת לעמוד ככל שארצה ללא כאב"
+                },
+                {
+                  "answerID": 1,
+                  "answerText": "אני מסוגל/ת לעמוד ככל שארצה עם מעט כאב"
+                },
+                {
+                  "answerID": 2,
+                  "answerText": "הכאב מונע ממני לעמוד יותר משעה"
+                },
+                {
+                  "answerID": 3,
+                  "answerText": "הכאב מונע ממני לעמוד יותר מחצי שעה"
+                },
+                {
+                  "answerID": 4,
+                  "answerText": "הכאב מונע ממני לעמוד יותר מ-10 דקות"
+                },
+                {
+                  "answerID": 5,
+                  "answerText": "הכאב מונע ממני לעמוד כלל"
+                }
+              ]
+          },
+		  {
+            "QuestionID" : 6,
+            "QuestionText":"שינה",
+            "Type":"Single",
+            "Answers":
+              [
+                {
+                  "answerID": 0,
+                  "answerText": "שנתי אינה מופרעת כתוצאה מכאב"
+                },
+                {
+                  "answerID": 1,
+                  "answerText": "שנתי לעיתים מופרעת כתוצאה מכאב"
+                },
+                {
+                  "answerID": 2,
+                  "answerText": "בשל הכאב אני ישן/ה פחות מ-6 שעות"
+                },
+                {
+                  "answerID": 3,
+                  "answerText": "בשל הכאב אני ישן/ה פחות מ-4 שעות"
+                },
+                {
+                  "answerID": 4,
+                  "answerText": "בשל הכאב אני ישן/ה פחות משעתיים"
+                },
+                {
+                  "answerID": 5,
+                  "answerText": "כאב מונע ממני שינה לחלוטין"
+                }
+              ]
+          },
+        {
+        "QuestionID" : 7,
+        "QuestionText":"חיי מין",
+        "Type":"Single",
+        "Answers":
+        [
+          {
+            "answerID": 0,
+            "answerText": "חיי המין שלי רגילים ואינם מגבירים את כאבי"
+          },
+          {
+            "answerID": 1,
+            "answerText": "חיי המין שלי רגילים אך הם מגבירים את רמת הכאב"
+          },
+          {
+            "answerID": 2,
+            "answerText": "חיי המין שלי קרובים לנורמלי אך גורמים לי להרבה כאב"
+          },
+          {
+            "answerID": 3,
+            "answerText": "חיי המין שלי מוגבלים מאוד בשל כאב"
+          },
+          {
+            "answerID": 4,
+            "answerText": "כמעט ואין לי חיי מין בשל כאב"
+          },
+          {
+            "answerID": 5,
+            "answerText": "הכאב מונע ממני כל חיי מין"
+          }
+        ]
+      },
+		  		  {
+            "QuestionID" : 8,
+            "QuestionText":"חיי חברה",
+            "Type":"Single",
+            "Answers":
+              [
+                {
+                  "answerID": 0,
+                  "answerText": "חיי החברה שלי רגילים ואינם מגבירים את כאבי"
+                },
+                {
+                  "answerID": 1,
+                  "answerText": "חיי החברה שלי רגילים אך הם מגבירים את רמת הכאב"
+                },
+                {
+                  "answerID": 2,
+                  "answerText": "לכאב אין השפעה משמעותית ע חיי החברה שלי מלבד הגבלה על פעילויות אקטיביות כדוגמת ספורט"
+                },
+                {
+                  "answerID": 3,
+                  "answerText": "הכאב הגביל את חיי החברה שלי ואינני יוצא באותה תדירות"
+                },
+                {
+                  "answerID": 4,
+                  "answerText": "הכאב מגביל את חיי החברה שלי לביתי"
+                },
+                {
+                  "answerID": 5,
+                  "answerText": "כמעט שאין לי חיי חברה כתוצאה מכאביי"
+                }
+              ]
+          },
+		  		  		  {
+            "QuestionID" : 9,
+            "QuestionText":"טיולים",
+            "Type":"Single",
+            "Answers":
+              [
+                {
+                  "answerID": 0,
+                  "answerText": "אני יכול/ה לטייל לכל מקום ללא כאב"
+                },
+                {
+                  "answerID": 1,
+                  "answerText": "אני יכול/ה לטייל לכל מקום אך בתוספת כאב"
+                },
+                {
+                  "answerID": 2,
+                  "answerText": "הכאב הוא עז אך אני מצליח לצאת לטיולים של יותר משעתיים"
+                },
+                {
+                  "answerID": 3,
+                  "answerText": "הכאב מגביל את טיוליי לפחות משעה אחת"
+                },
+                {
+                  "answerID": 4,
+                  "answerText": "הכאב מגביל אותי ליציאות הכרחיות בלבד האורכות פחות מחצי שעה"
+                },
+                {
+                  "answerID": 5,
+                  "answerText": "הכאב מונע ממני לצאת למעט לקבלת טיפולים"
+                }
+              ]
+          }
+      ]
+  }
+]
