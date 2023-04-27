@@ -36,7 +36,7 @@ var getScore = async function (QuestionnaireID, Answers) {
             await Answers.forEach(function(answer){
                 answersString = answersString + (answer.AnswerID[0]).toString();
             });
-            var results = await csv().fromFile("C:\\Users\\noyha\\IdeaProjects\\ProjectServer\\eq5dCalc.csv");
+            var results = await csv().fromFile("C:\\Users\\yoni9\\Desktop\\eq5dCalc.csv"); //change here
             score = await searchForScore(results, answersString);
             if(score == null){
                 var exception = {'message': 'Invalid Answer'};
