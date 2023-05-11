@@ -36,11 +36,15 @@ var getScore = async function (QuestionnaireID, Answers) {
             await Answers.forEach(function(answer){
                 answersString = answersString + (answer.AnswerID[0]).toString();
             });
-            var results = await csv().fromFile("C:\\Users\\yoni9\\Desktop\\eq5dCalc.csv"); //change here
+            var results = await csv().fromFile("C:/Users/User/Desktop/Server-2023/eq5dCalc.csv");
+            console.log(results);
             score = await searchForScore(results, answersString);
-            if(score == null){
-                var exception = {'message': 'Invalid Answer'};
-                throw exception;
+            console.log(answersString);
+            if(score == null)
+            {
+                // var exception = {'message': 'Invalid Answer'};
+                // throw exception;
+                score = 0;
             }
             break;
         case 6:
@@ -76,7 +80,6 @@ router.post('/getLastPeriodicByQuestionnaire', async function(req, res){
 
 
 router.post('/sendAnswers', async function (req, res, next) {
-    console.log(req.body);
     if(req.body.QuestionnaireID==0) {
         var newAnswer = new DailyAnswer({
             UserID: req.UserID,
