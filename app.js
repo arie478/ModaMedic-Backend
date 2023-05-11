@@ -5,7 +5,6 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 const bodyparser = require('body-parser');
 
-
 var indexRouter = require('./routes/index');
 var authRouter = require('./routes/auth');
 var usersRouter = require('./routes/users');
@@ -26,7 +25,6 @@ const { onOpen, onError } = require("./instructionsUpload/my-gridfs-service");
 
 var app = express();
 var cors = require('cors');
-
 
 const corsConfig = {
   origin: true,
@@ -53,17 +51,16 @@ app.use(bodyparser.urlencoded({
 var mongoose = require('mongoose');
 
 //Set up default mongoose connection
-//var mongoDB = "mongodb+srv://shtaro:turAYR3011@cluster0-lk8r9.mongodb.net/test?retryWrites=true&w=majority";
 var mongoDB = "mongodb://localhost:27017/modamedicDB";
-// var mongoNoyUrl = "mongodb+srv://qwaszxQ93:qwaszxQ93@cluster0.z7gun.mongodb.net/myFirstDatabase?retryWrites=true&w=majority\n" +
-//     "\n";
 var finalUri = process.env.MONGO_URL || mongoDB;
-//mongoose.connect(finalUri,  { useNewUrlParser: true }); //<----- Change by Arie
-mongoose.connect(finalUri, { useNewUrlParser: true,  useUnifiedTopology: true, useCreateIndex: true });
+mongoose.connect(finalUri, { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true });
+
 // Get Mongoose to use the global promise library
 mongoose.Promise = global.Promise;
+
 //Get the default connection
 const db = mongoose.connection;
+
 db.once('open', function (err) {
   if (!err) {
     console.log("connected to mongo db");
@@ -72,6 +69,7 @@ db.once('open', function (err) {
   else
     console.log("failed");
 });
+
 //Bind connection to error event (to get notification of connection errors)
 db.on('error', function () {
   console.error.bind(console, 'MongoDB connection error:');
@@ -118,10 +116,9 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
-
-
 //helper function to build up the desire time trigger
-function forceMidnightGroupsDataCalculations(hour,minute) {
+function forceMidnightGroupsDataCalculations(hour,minute)
+{
   var t = new Date();
   t.setHours(hour);
   t.setMinutes(minute);
@@ -129,17 +126,14 @@ function forceMidnightGroupsDataCalculations(hour,minute) {
   t.setMilliseconds(0);
   return t;
 }
+
 let comperePatients =require('./modules/ComperePatients');
+
 //get your offset to wait value
 var cron = require('node-cron');
-
-
 
 cron.schedule('00 04 09 * * *', () => {
   comperePatients.calculateGroupsData().then(r => console.log("finish midnight calculations for patients compere"));
 });
 
-
 module.exports = app;
-
-

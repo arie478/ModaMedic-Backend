@@ -6,34 +6,28 @@
 
 var app = require('../app');
 var debug = require('debug')('modamedic:server');
-var http = require('http');
 var https = require('https');
 var fs = require('fs');
 
 var httpsOptions = {
-  key: "MIIEowIBAAKCAQEAqxvkQeF8SY83Nh05LUO62QIXNyLQHcKfe4NbXyoj2OdavLMie4XfjNLUTuCOQ6LJUW47xEzqhY7sLtgliZJo8IA7BUvxufhSth7G+tuvBjjTmiUpmRCmt4wx1ENKLRl+zL/NI4X27XpoJBCP2uyxI0m/zWojsqy1tK4fxWlXucsyTFkCh1HKnfEcZOzE5cEa1VRRLfQKuJyQrFxDQbs6rZ46WJjsPqLIRuXV+Z6BnnGl+kiZvM9pIE+/6tEsiFSB5rDc3vyL+TA8hzIOCcuGqT57IvI9SShW5UXJ/5lNEubuV/n0UoOIA0IOR2l/1QWlY39AYbWBbPjsqPjL70IwTQIDAQABAoIBAHrHbshfNkHKREHOQmLagM6Kk4H6tv9D0hBct0nYART5HcDdgVbFPx3bgoB+3VZnDrIhuT0oO/hOD+elLXpD1o0MVk18qx1YtHD+MKV80WBTknK/S9QLgLWgIXlAN4+ZBcWBs39T91V8ShHm2HKs+IZruvd4u9jP2Sqm7yFGb65elSGQuUInD1iXs5y2wske4jzDqa7oVtOFISMSXsa52p+Mms4iLyO+Ij6aq+g7fWfLHWYwqi7H9IHvbzmc4CGTqjOn4JNlhRqiARbLMP2Z9mT5RaPYOcajM7qgmIcR+zd4lCI38z/JRrpBnMfqXpJS5c99WiAANekugZyY /8O5dUECgYEA3BBYZ304fGHzvPAGrm179hdb6yezjJICGde0oAhMLSWV3/5B8rYN5iW6hnICiqaqtIdTPK0X4J2Y8fcbZGUBHZWrf54gtuMtoWygNrKo5Yd8AJMK7gvZ8GUmeYSopn9F0NFSDJoJPRDTd+lOH2Plq4C16lZl+LhWJ1nDMf9euEUCgYEAxw0DJhoXS0vsaK0ZN/i5Ris9Hlvys849akxHji79OgKsuJS8RBeYFZdZWfzfNV5bcYYLRzlRUwrPL7eF3evuR6zH+o+vM46Ka1MeStTnUFdAk1YRwyetnEOsMYzm3HZdV5tiqbealSM6c7F0wt9zqE2TmNfVEiHTQn/18Ih17GkCgYEAmAzrKEZLGxYK9QbbdvXK6tRk/GvoET5pGTYDZXeWOrN3hNcG9g54OAblhDOOMgLKfAXsq0Xl85qwrK7STGHFjY12e6zkabk6NAj8Ag8bx8v/D96JdMTXhtQ860WPycqykH+ws2hS7dCMbJPVGLdLX16FUy7zMhEb5gCNcCREbAkCgYAMgd7OyBjqnEywjx/kinZp2FGw1Ko9bhoh0cU1Q/KZcI2V05K43Jqr0KTGqMMFwXYRfhC7WvinNSiroOaCeU6xpkOylNC3dp9v+vsOTK50N+dQ2rmm/5lDFmV9f5MKC032MUdTzruh32LO3jmt/QhxbN53Xih/SSzTIuM7R/fQ8QKBgGd1tcSQVlt3ebtPlXWOOuFejiri2TCnlPR9SzE9buwlD9AKALWNPP9IhQX9S4wJ+PBFjMTXtaH7GTSLaMyhdEH85CCW03wzGwTBP+EHa0rVPc3blmdLPYcjNZg2RxuqpKpu/m0/CIY4enJMJF5hgUIfLoDoq9vy9oXPoFlmH66m",
-  // key: fs.readFileSync("C:\\Users\\noyha\\IdeaProjects\\ProjectServer\\key.pem"),
-  // cert: fs.readFileSync("C:\\Users\\noyha\\IdeaProjects\\ProjectServer\\cert.pem")  key: fs.readFileSync("C:\\Users\\noyha\\IdeaProjects\\ProjectServer\\key.pem"),
-  cert: 'MIIDKjCCAhICCQDJWjukuYi3HTANBgkqhkiG9w0BAQsFADBXMQswCQYDVQQGEwJpbDELMAkGA1UECAwCaWwxCzAJBgNVBAcMAmJzMQwwCgYDVQQKDANiZ3UxCzAJBgNVBAsMAml0MRMwEQYDVQQDDAoxMC4wLjAuMTAzMB4XDTIwMDUyNjA5NTA1MloXDTQ3MTAxMTA5NTA1MlowVzELMAkGA1UEBhMCaWwxCzAJBgNVBAgMAmlsMQswCQYDVQQHDAJiczEMMAoGA1UECgwDYmd1MQswCQYDVQQLDAJpdDETMBEGA1UEAwwKMTAuMC4wLjEwMzCCASIwDQYJKoZIhvcNAQEBBQADggEPADCCAQoCggEBAKsb5EHhfEmPNzYdOS1DutkCFzci0B3Cn3uDW18qI9jnWryzInuF34zS1E7gjkOiyVFuO8RM6oWO7C7YJYmSaPCAOwVL8bn4UrYexvrbrwY405olKZkQpreMMdRDSi0Zfsy/zSOF9u16aCQQj9rssSNJv81qI7KstbSuH8VpV7nLMkxZAodRyp3xHGTsxOXBGtVUUS30CrickKxcQ0G7Oq2eOliY7D6iyEbl1fmegZ5xpfpImbzPaSBPv+rRLIhUgeaw3N78i/kwPIcyDgnLhqk+eyLyPUkoVuVFyf+ZTRLm7lf59FKDiANCDkdpf9UFpWN/QGG1gWz47Kj4y+9CME0CAwEAATANBgkqhkiG9w0BAQsFAAOCAQEAgfhoNx68mun5mAO8la+4naCa4Wp0SeGgjPk/zJzF48LZ6YSqu6TrLzdeMPdYHHrh+JsG+uBFd32LYjdQIO1vPBbbxiRLu+YyZ3qqbbuq4v5X5QSirgR37NuYWuNVrkF9aC/Z4qb+PRuP7avz7qzg9+DXABq/xIbvsFU9ikNWkkSzfiBGjg9wZYQO0h15EaPT9OD9Hee0vby11Dl4yzfvBhMfi+LaGhm2o860Q7PuI0LP1qKHFYmoPemg/Xa6gaPOBQ6CA9Ao6MuJ3M4UIIgiZHruUinr3HG3RRj0LT+ovao2V5DUKNMky5YS/scWPyCc1kzK2A5pVP0IBG+qI6/OZA=='
+  key: fs.readFileSync("C:/Users/User/Desktop/Server-2023/privkey.pem"),
+  cert: fs.readFileSync("C:/Users/User/Desktop/Server-2023/fullchain.pem")
 }
+
 /**
  * Get port from environment and store in Express.
  */
-
-// var port = normalizePort(process.env.PORT || '8181');
-var port = normalizePort(process.env.PORT || '8180');
+var port = normalizePort('443');
 app.set('port', port);
 
 /**
- * Create HTTP server.
+ * Create HTTPS server.
  */
-
-var server = http.createServer(httpsOptions, app);
+var server = https.createServer(httpsOptions, app);
 
 /**
  * Listen on provided port, on all network interfaces.
  */
-
 server.listen(port);
 server.on('error', onError);
 server.on('listening', onListening);
@@ -41,7 +35,6 @@ server.on('listening', onListening);
 /**
  * Normalize a port into a number, string, or false.
  */
-
 function normalizePort(val) {
   var port = parseInt(val, 10);
 
@@ -61,15 +54,14 @@ function normalizePort(val) {
 /**
  * Event listener for HTTP server "error" event.
  */
-
 function onError(error) {
   if (error.syscall !== 'listen') {
     throw error;
   }
 
   var bind = typeof port === 'string'
-    ? 'Pipe ' + port
-    : 'Port ' + port;
+      ? 'Pipe ' + port
+      : 'Port ' + port;
 
   // handle specific listen errors with friendly messages
   switch (error.code) {
@@ -89,13 +81,12 @@ function onError(error) {
 /**
  * Event listener for HTTP server "listening" event.
  */
-
 function onListening() {
 
   var addr = server.address();
 
   var bind = typeof addr === 'string'
-    ? 'pipe ' + addr
-    : 'port ' + addr.port;
+      ? 'pipe ' + addr
+      : 'port ' + addr.port;
   debug('Listening on ' + bind);
 }
