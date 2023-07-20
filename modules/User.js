@@ -3,7 +3,7 @@ var service = require('../service.js');
 var jwt = require('jsonwebtoken');
 var common = require('../routes/common');
 
-//Define a schema
+// Define a schema
 var Schema = mongoose.Schema;
 
 var UserSchema = new Schema({
@@ -23,7 +23,7 @@ var UserSchema = new Schema({
     Height: Number,
     Weight: Number,
     BMI: String,
-    BMI_NUMBER: Number ,
+    BMI_NUMBER: Number,
     BirthDate: Number,
     Type: [String],
     DateOfSurgery: Number,
@@ -44,173 +44,230 @@ var UserSchema = new Schema({
     Timestamp: Number
 });
 
-//create models
+// Create models
 var User = module.exports = mongoose.model('User', UserSchema,'User');
 
 var secret = "secret";
 var tempToken = "password";
 
-//creates user in db
-module.exports.createUser = function(newUser, callback){
-    //console.log(newUser);
+// Creates user in db
+module.exports.createUser = function(newUser, callback)
+{
+    // console.log(newUser);
     newUser.save(callback);
 };
 
-//gets user from db by username
-module.exports.getUserByUserID = async function(userid, callback){
+// Gets user from db by username
+module.exports.getUserByUserID = async function(userid, callback)
+{
     var query = {UserID: userid};
     await User.findOne(query, callback);
 };
 
-module.exports.getUserByName = async function(firstName, lastName, type, callback){
+// Gets user from db by name
+module.exports.getUserByName = async function(firstName, lastName, type, callback)
+{
     var query = {First_Name: firstName, Last_Name: lastName, Type:type};
     await User.find(query, callback);
 };
 
-module.exports.privateCheck = function(req, res, next) {
-    console.log("private check");
+module.exports.privateCheck = function(req, res, next)
+{
     const token = req.header("x-auth-token");
-    // no token
-    if (!token) {
+
+    // No token
+    if (!token)
+    {
         var error = {'message': 'Access denied. No token provided.'};
         common(res, error, error, null);
     }
-    else {
-        // verify token
-        try {
+
+    // Verify token
+    else
+    {
+        try
+        {
             const decoded = jwt.verify(token, secret);
             var userId = decoded.UserID;
             req.UserID = userId;
             req.Type = decoded.Type;
             req.decoded = decoded;
-            console.log("checked");
-            next(); //move on to the actual function
-        } catch (exception) {
+            next(); // move on to the actual function
+        }
+
+        catch (exception)
+        {
             var error = {'message': 'Invalid Token'};
             common(res, error, error, null);
         }
     }
 };
 
-module.exports.patientCheck = function(req, res, next){
+module.exports.patientCheck = function(req, res, next)
+{
     const token = req.header("x-auth-token");
-    // verify token
-    try {
+
+    // Verify token
+    try
+    {
         const decoded = jwt.verify(token, secret);
         var userType = decoded.Type;
-        if(userType.includes("patient")) {
+
+        if(userType.includes("patient"))
+        {
             req.Type = userType;
-            next(); //move on to the actual function
+            next(); // move on to the actual function
         }
-        else{
+
+        else
+        {
             var error = {'message': 'permission denied, required patient'};
             common(res, error, error, null);
         }
-    } catch (exception) {
+    }
+
+    catch (exception)
+    {
         var error = {'message': 'Invalid Token'};
         common(res, error, error, null);
     }
 };
 
-module.exports.doctorCheck = function(req, res, next){
+module.exports.doctorCheck = function(req, res, next)
+{
     const token = req.header("x-auth-token");
-    // verify token
-    try {
+
+    // Verify token
+    try
+    {
         const decoded = jwt.verify(token, secret);
         var userType = decoded.Type;
-        if(userType.includes("doctor")) {
+
+        if(userType.includes("doctor"))
+        {
             req.Type = userType;
-            next(); //move on to the actual function
+            next(); // move on to the actual function
         }
-        else{
+
+        else
+        {
             var error = {'message': 'permission denied, required doctor'};
             common(res, error, error, null);
         }
-    } catch (exception) {
+    }
+
+    catch (exception)
+    {
         var error = {'message': 'Invalid Token'};
         common(res, error, error, null);
     }
 };
 
-module.exports.adminCheck = function(req, res, next){
+module.exports.adminCheck = function(req, res, next)
+{
     const token = req.header("x-auth-token");
+
     // verify token
-    try {
+    try
+    {
         const decoded = jwt.verify(token, secret);
         var userType = decoded.Type;
-        if(userType.includes("admin")) {
+
+        if(userType.includes("admin"))
+        {
             req.Type = userType;
-            next(); //move on to the actual function
+            next(); // move on to the actual function
         }
-        else{
-            var error = {'message': 'permission denied, required patient'};
+
+        else
+        {
+            var error = {'message': 'permission denied, required admin'};
             common(res, error, error, null);
         }
-    } catch (exception) {
+    }
+
+    catch (exception)
+    {
         var error = {'message': 'Invalid Token'};
         common(res, error, error, null);
     }
 };
 
-module.exports.passwordCheck = function(req, res, next) {
-    console.log("password check");
+module.exports.passwordCheck = function(req, res, next)
+{
     const token = req.header("x-auth-token");
-    // no token
-    if (!token){
+
+    // No token
+    if (!token)
+    {
         var error = {'message': 'Access denied. No token provided.'};
         common(res, error, error, null);
     }
-    else {
-        // verify token
-        try {
+
+    // verify token
+    else
+    {
+        try
+        {
             const decoded = jwt.verify(token, tempToken);
             var userId = decoded.UserID;
             req.UserID = userId;
             req.decoded = decoded;
-            console.log("checked");
-            next(); //move on to the actual function
-        } catch (exception) {
+            next(); // move on to the actual function
+        }
+
+        catch (exception)
+        {
             var error = {'message': 'Invalid Token'};
             common(res, error, error, null);
         }
     }
 };
 
-//returns if entered password matches saved password (using hash)
-module.exports.comparePassword = function(candidatePassword, hash, callback){
-    var hasedPassword=service.hashElement(candidatePassword);
-    var isMatch=false;
-    if (hasedPassword==hash)
-        isMatch=true;
+// Returns if entered password matches saved password (using hash)
+module.exports.comparePassword = function(candidatePassword, hash, callback)
+{
+    var hasedPassword = service.hashElement(candidatePassword);
+    var isMatch = false;
+
+    if (hasedPassword === hash)
+        isMatch = true;
+
     callback(null, isMatch);
 };
 
-//changes password saved in db
-module.exports.changePassword = function(user, newPassword, callback){
-    if(typeof(newPassword) == 'undefined') {
-        error = {'message': 'Error has occured. Please try again.'};
+// Changes password saved in db
+module.exports.changePassword = function(user, newPassword, callback)
+{
+    if(typeof(newPassword) == 'undefined')
+    {
+        var error = {'message': 'Error has occured. Please try again.'};
         callback(error);
     }
-    else{
+
+    else
+    {
         user.Password = service.hashElement(newPassword);
         user.save(callback);
     }
 };
 
-
-module.exports.editUser = function(user, field,val, callback){
-    if(typeof(val) == 'undefined') {
-        error = {'message': 'Error has occured. Please try again.'};
+module.exports.editUser = function(user, field,val, callback)
+{
+    if(typeof(val) == 'undefined')
+    {
+        var error = {'message': 'Error has occured. Please try again.'};
         callback(error);
     }
-    else{
-        user[field]=val;
+
+    else
+    {
+        user[field] = val;
         user.save(callback);
     }
 };
 
-module.exports.updateUser = function(user, callback){
+module.exports.updateUser = function(user, callback)
+{
     user.save(callback);
 };
-
-

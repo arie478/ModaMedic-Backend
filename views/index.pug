@@ -3,3 +3,51 @@ extends layout
 block content
   h1= title
   p Welcome to #{title}
+
+  .container
+    h2 Contact Us
+
+    form(action="#" method="post" enctype="text/plain" onsubmit="submitForm(event)")
+      div
+        label(for="name") Name:
+        br
+        input(type="text" id="name" name="name" required)
+
+      div
+        label(for="email") Email:
+        br
+        input(type="email" id="email" name="email" required)
+
+      div
+        label(for="message") Message:
+        br
+        textarea(id="message" name="message" required)
+
+      div
+        button(type="submit") Send Message
+
+  script.
+    function submitForm(event) {
+      event.preventDefault();
+
+      // Retrieve form values
+      var name = document.getElementById('name').value;
+      var email = document.getElementById('email').value;
+      var message = document.getElementById('message').value;
+
+      // Perform basic input validation
+      if (name.trim() === '' || email.trim() === '' || message.trim() === '') {
+        alert('Please fill in all the fields.');
+        return;
+      }
+
+      // Perform additional security checks
+
+      // TODO: Add your custom security checks and validation here
+
+      // If all checks pass, proceed with form submission
+      document.getElementById('name').value = '';
+      document.getElementById('email').value = '';
+      document.getElementById('message').value = '';
+      alert('Message sent successfully!');
+    }
